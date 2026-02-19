@@ -27,9 +27,16 @@ public class Lerp1 : MonoBehaviour
             float r = 10f;
             startPosition[i] = new Vector3(r * Random.Range(-1f, 1f), r * Random.Range(-1f, 1f), r * Random.Range(-1f, 1f));        
 
-            r = 3f; // radius of the circle
+            r = 10f; // radius of the circle
             // Circular end position
-            endPosition[i] = new Vector3(r * Mathf.Sin(i * 2 * Mathf.PI / numSphere), r * Mathf.Cos(i * 2 * Mathf.PI / numSphere));
+            float k = 3f / 2f;
+            float sin = Mathf.Sin(i + 2 * Mathf.PI / numSphere);
+            float cos = Mathf.Cos(i + 2 * Mathf.PI / numSphere);
+            float sink = Mathf.Sin(i + 2 * Mathf.PI / numSphere * k);
+            float cosk = Mathf.Cos(i + 2 * Mathf.PI / numSphere * k);
+            endPosition[i] = new Vector3(r * cosk * sin,r * cosk * cos);
+            //endPosition[i] = new Vector3(r * Mathf.Sin(i * 2 * Mathf.PI / numSphere), r * Mathf.Cos(i * 2 * Mathf.PI / numSphere));
+
         }
         // Let there be spheres..
         for (int i =0; i < numSphere; i++){

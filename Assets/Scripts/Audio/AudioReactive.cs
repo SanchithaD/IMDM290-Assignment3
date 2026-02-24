@@ -30,9 +30,17 @@ public class AudioReactive : MonoBehaviour
             float r = 10f;
             startPosition[i] = new Vector3(r * Random.Range(-1f, 1f), r * Random.Range(-1f, 1f), r * Random.Range(-1f, 1f));        
 
-            r = 10f; // radius of the circle
+            r = 8f; // radius of the circle
             // Circular end position
+
+            // Flower 1
             endPosition[i] = new Vector3(r * Mathf.Cos(i * 2 * Mathf.PI / numSphere * 2) * Mathf.Cos(i * 2 * Mathf.PI / numSphere), r * Mathf.Cos(i * 2 * Mathf.PI / numSphere * 2) * Mathf.Sin(i * 2 * Mathf.PI / numSphere));
+
+            // Flower 2
+            // endPosition[i] = new Vector3(r * Mathf.Cos(i * 2 * Mathf.PI / numSphere * 3) * Mathf.Cos(i * 2 * Mathf.PI / numSphere), r * Mathf.Cos(i * 2 * Mathf.PI / numSphere * 3) * Mathf.Sin(i * 2 * Mathf.PI / numSphere));
+
+            // Flower 3
+            // endPosition[i] = new Vector3(r * Mathf.Cos(i * 2 * Mathf.PI / numSphere * 4) * Mathf.Cos(i * 2 * Mathf.PI / numSphere), r * Mathf.Cos(i * 2 * Mathf.PI / numSphere * 4) * Mathf.Sin(i * 2 * Mathf.PI / numSphere));
         }
         // Let there be spheres..
         for (int i =0; i < numSphere; i++){
@@ -44,12 +52,12 @@ public class AudioReactive : MonoBehaviour
             initPos[i] = startPosition[i];
             spheres[i].transform.position = initPos[i];
             spheres[i].transform.localRotation = Quaternion.EulerAngles(Random.Range(-180f, 180f), Random.Range(-180f, 180f), Random.Range(-180f, 180f));
-            spheres[i].transform.localScale = new Vector3(Random.Range(0.3f, 0.5f), Random.Range(0.3f, 0.5f), Random.Range(0.3f, 0.5f));
+            spheres[i].transform.localScale = new Vector3(Random.Range(0.1f, 0.3f), Random.Range(0.1f, 0.3f), Random.Range(0.1f, 0.3f));
             // Color
             // Get the renderer of the spheres and assign colors.
             Renderer sphereRenderer = spheres[i].GetComponent<Renderer>();
             // HSV color space: https://en.wikipedia.org/wiki/HSL_and_HSV
-            float hue = (float)i / numSphere; // Hue cycles through 0 to 1
+            float hue = (float)i / numSphere * 2; // Hue cycles through 0 to 1
             Color color = Color.HSVToRGB(hue, 1f, 1f); // Full saturation and brightness
             sphereRenderer.material.color = color;
         }
@@ -83,8 +91,9 @@ public class AudioReactive : MonoBehaviour
             
             // Color Update over time
             Renderer sphereRenderer = spheres[i].GetComponent<Renderer>();
-            float hue = (float)i / numSphere; // Hue cycles through 0 to 1
-            Color color = Color.HSVToRGB(Mathf.Abs(hue * Mathf.Cos(time)), Mathf.Cos(AudioSpectrum.audioAmp / 10f), 2f + Mathf.Cos(time)); // Full saturation and brightness
+            // float hue = (float)i / numSphere; // Hue cycles through 0 to 1
+            Color color = Color.HSVToRGB(Mathf.Abs(1f * Mathf.Cos(time)), Mathf.Cos(AudioSpectrum.audioAmp / 10f), 2f + Mathf.Cos(time)); // Full saturation and brightness
+            // Switched Hue with 1f to make the color of the shape constant
             sphereRenderer.material.color = color;
         }
     }

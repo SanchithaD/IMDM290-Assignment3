@@ -46,7 +46,7 @@ public class AudioReactive : MonoBehaviour
         for (int i =0; i < numSphere; i++){
             // Draw primitive elements:
             // https://docs.unity3d.com/6000.0/Documentation/ScriptReference/GameObject.CreatePrimitive.html
-            spheres[i] = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            spheres[i] = GameObject.CreatePrimitive(PrimitiveType.Cube);
 
             // Position
             initPos[i] = startPosition[i];

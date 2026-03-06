@@ -16,7 +16,7 @@ public class TimeBased : MonoBehaviour
     Vector3[,] endPositions;
     void Start()
     {
-        timeFlags = new float[] { 0f, 10f, 20f, 30f };
+        timeFlags = new float[] { 0f, 4f, 10f, 30f };
         segmentCount = timeFlags.Length - 1;
         spheres = new GameObject[numSphere];
         initPos = new Vector3[numSphere];
@@ -25,22 +25,23 @@ public class TimeBased : MonoBehaviour
         for (int i = 0; i < numSphere; i++)
         {
             float r = 10f;
-            // Segment 0 : 0s -> 10s
-            startPositions[0, i] = new Vector3(r * Random.Range(-1f, 1f), r * Random.Range(-1f, 1f), r * Random.Range(-1f, 1f));;
-            endPositions[0, i] = new Vector3(r * Random.Range(-1f, 1f), r * Random.Range(-1f, 1f), r * Random.Range(-1f, 1f));;
+            // Segment 0 : 0s -> 4s
+            startPositions[0, i] = new Vector3(r * Random.Range(-1f, 1f), r * Random.Range(-1f, 1f), r * Random.Range(-1f, 1f));
+            endPositions[0, i] = new Vector3(r * Random.Range(-1f, 1f), r * Random.Range(-1f, 1f), r * Random.Range(-1f, 1f));
+            
 
-            // Segment 1 : 10s -> 20s
-            startPositions[1, i] = new Vector3(r * Random.Range(-2f, 0f), r * Random.Range(-2f, 0f), r * Random.Range(-2f, 0f));;
-            endPositions[1, i] = new Vector3(r * Random.Range(-2f, 0f), r * Random.Range(-2f, 0f), r * Random.Range(-2f, 0f));;
+            // Segment 1 : 4s -> 6s
+            startPositions[1, i] = new Vector3(r * Random.Range(-1f, 1f), r * Random.Range(-1f, 1f), r * Random.Range(-1f, 1f));
+            endPositions[1, i] = new Vector3(r * Mathf.Sin(i * 2 * Mathf.PI / numSphere), r * Mathf.Cos(i * 2 * Mathf.PI / numSphere));
 
             // Segment 2 : 20s -> 30s
-            startPositions[2, i] = new Vector3(r * Random.Range(-3f, -1f), r * Random.Range(-3f, -1f), r * Random.Range(-3f, -1f));;
-            endPositions[2, i] = new Vector3(r * Random.Range(-3f, -1f), r * Random.Range(-3f, -1f), r * Random.Range(-3f, -1f));;
+            startPositions[2, i] = new Vector3(r * Random.Range(-1f, 1f), r * Random.Range(-1f, 1f), r * Random.Range(-1f, 1f));
+            endPositions[2, i] = new Vector3(r * Mathf.Cos(i * 2 * Mathf.PI / numSphere * 2) * Mathf.Cos(i * 2 * Mathf.PI / numSphere), r * Mathf.Cos(i * 2 * Mathf.PI / numSphere * 2) * Mathf.Sin(i * 2 * Mathf.PI / numSphere));
         }
         /*
         
         Test: Sphere cluster should translate down to the left after every 10 seconds.
-        Result: Succss!
+        Result: Success!
 
         */
 
@@ -60,7 +61,7 @@ public class TimeBased : MonoBehaviour
             Renderer sphereRenderer = spheres[i].GetComponent<Renderer>();
             // HSV color space: https://en.wikipedia.org/wiki/HSL_and_HSV
             float hue = (float)i / numSphere * 2; // Hue cycles through 0 to 1
-            Color color = Color.HSVToRGB(hue, 1f, 1f); // Full saturation and brightness
+            Color color = Color.HSVToRGB(1f, .7f, 1f); // Full saturation and brightness
             sphereRenderer.material.color = color;
         }
     }

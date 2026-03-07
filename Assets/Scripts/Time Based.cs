@@ -16,7 +16,7 @@ public class TimeBased : MonoBehaviour
     Vector3[,] endPositions;
     void Start()
     {
-        timeFlags = new float[] { 0f, 4f, 10f, 30f };
+        timeFlags = new float[] { 0f, 4f, 10f, 20f, 30f };
         segmentCount = timeFlags.Length - 1;
         spheres = new GameObject[numSphere];
         initPos = new Vector3[numSphere];
@@ -30,13 +30,17 @@ public class TimeBased : MonoBehaviour
             endPositions[0, i] = new Vector3(r * Random.Range(-1f, 1f), r * Random.Range(-1f, 1f), r * Random.Range(-1f, 1f));
             
 
-            // Segment 1 : 4s -> 6s
+            // Segment 1 : 4s -> 10s
             startPositions[1, i] = new Vector3(r * Random.Range(-1f, 1f), r * Random.Range(-1f, 1f), r * Random.Range(-1f, 1f));
             endPositions[1, i] = new Vector3(r * Mathf.Sin(i * 2 * Mathf.PI / numSphere), r * Mathf.Cos(i * 2 * Mathf.PI / numSphere));
 
-            // Segment 2 : 20s -> 30s
+            // Segment 2 : 10s -> 20s
             startPositions[2, i] = new Vector3(r * Random.Range(-1f, 1f), r * Random.Range(-1f, 1f), r * Random.Range(-1f, 1f));
             endPositions[2, i] = new Vector3(r * Mathf.Cos(i * 2 * Mathf.PI / numSphere * 2) * Mathf.Cos(i * 2 * Mathf.PI / numSphere), r * Mathf.Cos(i * 2 * Mathf.PI / numSphere * 2) * Mathf.Sin(i * 2 * Mathf.PI / numSphere));
+
+            // Segment 3 : 20s -> 30s
+            startPositions[3, i] = new Vector3(r * Random.Range(-1f, 1f), r * Random.Range(-1f, 1f), r * Random.Range(-1f, 1f));
+            endPositions[3, i] = new Vector3(r * Random.Range(-1f, 1f), r * Random.Range(-1f, 1f), r * Random.Range(-1f, 1f));
         }
         /*
         
@@ -99,6 +103,16 @@ public class TimeBased : MonoBehaviour
                 lerpFraction = Mathf.Sin(time) * 0.5f + 0.5f;
 
                 spheres[i].transform.position = Vector3.Lerp(startPositions[2,i], endPositions[2,i], lerpFraction);
+            }
+        }
+
+        else if (currentTime < timeFlags[4])
+        {
+            for (int i =0; i < numSphere; i++)
+            {
+                lerpFraction = Mathf.Sin(time) * 0.5f + 0.5f;
+
+                spheres[i].transform.position = Vector3.Lerp(startPositions[3,i], endPositions[3,i], lerpFraction);
             }
         }
         /*
